@@ -59,6 +59,7 @@ import {
 import { Folder as FolderType } from "../types";
 import { ConfirmationDialog } from "./ConfirmationDialog";
 import { motion } from "motion/react";
+import { usePWAInstall } from "../usePWAInstall";
 
 const FOLDER_ICONS: Record<string, React.ComponentType<any>> = {
   Folder,
@@ -170,6 +171,21 @@ export function SidebarMenu({
   const [createName, setCreateName] = useState("");
   const [createIcon, setCreateIcon] = useState("Folder");
   const [createColor, setCreateColor] = useState("default");
+
+  // PWA Install state & hook
+  const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
+  const [showPwaModal, setShowPwaModal] = useState(false);
+
+  const handlePwaInstallClick = async () => {
+    if (isInstallable) {
+      const res = await install();
+      if (res === "manual") {
+        setShowPwaModal(true);
+      }
+    } else {
+      setShowPwaModal(true);
+    }
+  };
 
   // Profile picture display state
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
@@ -555,6 +571,32 @@ export function SidebarMenu({
                 </div>
               </div>
             </button>
+
+            {/* PWA Install Button */}
+            <button
+              id="nav-pwa-install-btn"
+              onClick={handlePwaInstallClick}
+              className="flex items-center justify-between p-3 bg-charcoal-850/30 hover:bg-charcoal-850/60 border border-charcoal-700/30 rounded-2xl cursor-pointer text-left transition-colors group"
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-charcoal-750/50 flex items-center justify-center border border-charcoal-700/40">
+                  <Download className="w-4 h-4 text-charcoal-200 group-hover:text-charcoal-100 transition-colors" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-charcoal-100">PWA INSTALL</span>
+                    {isInstalled && (
+                      <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        Installed
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-[9px] text-charcoal-400">
+                    {isInstalled ? "Running in standalone mode" : "Install Note.ID app on your device"}
+                  </span>
+                </div>
+              </div>
+            </button>
           </div>
         </div>
       </motion.div>
@@ -783,6 +825,60 @@ export function SidebarMenu({
           setDeleteTarget(null);
         }}
       />
+
+      {/* PWA Install Guide Dialog */}
+      {showPwaModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-charcoal-900/80 backdrop-blur-md">
+          <div className="w-full max-w-sm bg-charcoal-800 border border-charcoal-700/60 rounded-3xl p-6 flex flex-col gap-4 shadow-2xl animate-fade-in">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                <Download className="w-5 h-5" />
+              </div>
+              <div className="flex flex-col">
+                <h3 className="text-base font-bold text-charcoal-50">Install Note.ID</h3>
+                <span className="text-[11px] text-charcoal-400">Progressive Web App (PWA)</span>
+              </div>
+            </div>
+
+            {isInstalled ? (
+              <p className="text-xs text-charcoal-300 leading-relaxed">
+                Note.ID is already running as an installed application on your device!
+              </p>
+            ) : isIOS ? (
+              <div className="flex flex-col gap-2.5 text-xs text-charcoal-300 leading-relaxed bg-charcoal-900/60 p-3.5 rounded-2xl border border-charcoal-750">
+                <p className="font-semibold text-charcoal-100">How to install on iPhone & iPad:</p>
+                <ol className="list-decimal list-inside space-y-1.5 text-charcoal-300">
+                  <li>Tap the <strong className="text-charcoal-100">Share</strong> button in the Safari toolbar.</li>
+                  <li>Scroll down and tap <strong className="text-charcoal-100">Add to Home Screen</strong>.</li>
+                  <li>Tap <strong className="text-charcoal-100">Add</strong> in the top right corner.</li>
+                </ol>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2.5 text-xs text-charcoal-300 leading-relaxed bg-charcoal-900/60 p-3.5 rounded-2xl border border-charcoal-750">
+                <p className="font-semibold text-charcoal-100">How to install Note.ID:</p>
+                <ul className="space-y-2 text-charcoal-300">
+                  <li>
+                    <strong className="text-charcoal-100">Desktop (Chrome / Edge):</strong> Click the <strong className="text-charcoal-100">Install</strong> icon in the address bar, or click browser menu (⋮) → <strong className="text-charcoal-100">Install Note.ID</strong>.
+                  </li>
+                  <li>
+                    <strong className="text-charcoal-100">Android:</strong> Tap the browser menu (⋮) → <strong className="text-charcoal-100">Install app</strong> or <strong className="text-charcoal-100">Add to Home screen</strong>.
+                  </li>
+                </ul>
+              </div>
+            )}
+
+            <div className="flex justify-end mt-1">
+              <button
+                id="pwa-guide-close-btn"
+                onClick={() => setShowPwaModal(false)}
+                className="w-full h-10 rounded-xl bg-charcoal-50 hover:bg-charcoal-100 text-charcoal-900 text-xs font-bold cursor-pointer transition-colors"
+              >
+                Got It
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
