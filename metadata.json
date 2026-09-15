@@ -1,0 +1,6 @@
+{
+  "name": "Note.ID",
+  "description": "A modern, local-first note-taking web application with isolated account environments and secure IndexedDB storage.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

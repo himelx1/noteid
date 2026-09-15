@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --color-charcoal-50: var(--color-charcoal-50);
+  --color-charcoal-100: var(--color-charcoal-100);
+  --color-charcoal-200: var(--color-charcoal-200);
+  --color-charcoal-300: var(--color-charcoal-300);
+  --color-charcoal-400: var(--color-charcoal-400);
+  --color-charcoal-500: var(--color-charcoal-500);
+  --color-charcoal-600: var(--color-charcoal-600);
+  --color-charcoal-700: var(--color-charcoal-700);
+  --color-charcoal-750: var(--color-charcoal-750);
+  --color-charcoal-800: var(--color-charcoal-800);
+  --color-charcoal-850: var(--color-charcoal-850);
+  --color-charcoal-900: var(--color-charcoal-900);
+  --color-charcoal-950: var(--color-charcoal-950);
+}
+
+:root, [data-theme="dark"] {
+  --color-charcoal-50: #f4f4f4;
+  --color-charcoal-100: #e3e3e3;
+  --color-charcoal-200: #c1c1c1;
+  --color-charcoal-300: #8e8e93;
+  --color-charcoal-400: #636366;
+  --color-charcoal-500: #48484a;
+  --color-charcoal-600: #3a3a3c;
+  --color-charcoal-700: #2c2c2e;
+  --color-charcoal-750: #242426;
+  --color-charcoal-800: #1c1c1e;
+  --color-charcoal-850: #151517;
+  --color-charcoal-900: #0d0d0e;
+  --color-charcoal-950: #070708;
+  color-scheme: dark;
+}
+
+[data-theme="light"], .theme-light {
+  --color-charcoal-50: #09090b;
+  --color-charcoal-100: #09090b;
+  --color-charcoal-200: #18181b;
+  --color-charcoal-300: #3f3f46;
+  --color-charcoal-400: #71717a;
+  --color-charcoal-500: #a1a1aa;
+  --color-charcoal-600: #d4d4d8;
+  --color-charcoal-700: #e4e4e7;
+  --color-charcoal-750: #f4f4f5;
+  --color-charcoal-800: #ffffff;
+  --color-charcoal-850: #ffffff;
+  --color-charcoal-900: #f8fafc;
+  --color-charcoal-950: #e2e8f0;
+  color-scheme: light;
+}
+
+/* Custom scrollbar styled to be hidden globally for a clean, premium, and seamless design */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background: transparent;
+  display: none;
+}
+
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+body {
+  background-color: var(--color-charcoal-900);
+  color: var(--color-charcoal-100);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Rich Text Editor Content Styling */
+.rich-editor blockquote {
+  border-left: 3px solid var(--color-charcoal-500);
+  padding-left: 1rem;
+  margin: 0.75rem 0;
+  color: var(--color-charcoal-300);
+  font-style: italic;
+}
+
+.rich-editor pre {
+  background-color: #141416;
+  border: 1px solid var(--color-charcoal-800);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-charcoal-100);
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.theme-light .rich-editor pre {
+  background-color: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #09090b;
+}
+
+.rich-editor ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.rich-editor ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.rich-editor hr {
+  border: 0;
+  border-top: 1px solid var(--color-charcoal-700);
+  margin: 1.25rem 0;
+}
+
+.rich-editor b, .rich-editor strong {
+  font-weight: 700;
+  color: var(--color-charcoal-50);
+}
+
+.rich-editor i, .rich-editor em {
+  font-style: italic;
+}
+
+.rich-editor u {
+  text-decoration: underline;
+}
+
+.rich-editor p {
+  margin-bottom: 0.5rem;
+}
+
+/* Placeholder support for contenteditable divs */
+.rich-editor[contenteditable="true"]:empty:before {
+  content: attr(placeholder);
+  color: var(--color-charcoal-400);
+  pointer-events: none;
+  display: block;
+}
+
+/* Note background option classes */
+.bg-note-default {
+  background-color: var(--color-charcoal-900) !important;
+  color: var(--color-charcoal-100) !important;
+}
+
+.bg-note-light {
+  background-color: #f5f5f7 !important;
+  color: #1c1c1e !important;
+}
+
+.bg-note-light input {
+  color: #1c1c1e !important;
+}
+
+.bg-note-light input::placeholder {
+  color: #8e8e93 !important;
+}
+
+.bg-note-light .rich-editor {
+  color: #2c2c2e !important;
+}
+
+.bg-note-light .rich-editor[contenteditable="true"]:empty:before {
+  color: #8e8e93 !important;
+}
+
+.bg-note-light .rich-editor b, .bg-note-light .rich-editor strong {
+  color: #1c1c1e !important;
+}
+
+.bg-note-light .rich-editor blockquote {
+  border-left-color: #8e8e93 !important;
+  color: #48484a !important;
+}
+
+.bg-note-light .text-charcoal-50 {
+  color: #1c1c1e !important;
+}
+
+.bg-note-light .text-charcoal-200 {
+  color: #2c2c2e !important;
+}
+
+.bg-note-light .text-charcoal-300 {
+  color: #48484a !important;
+}
+
+.bg-note-light .text-charcoal-400 {
+  color: #636366 !important;
+}
+
+.bg-note-light .placeholder\:text-charcoal-700::placeholder {
+  color: #8e8e93 !important;
+}
+
+.bg-note-light button:not(.audio-play-btn):not(.audio-delete-btn):not(.image-delete-btn):not(.image-delete-btn svg):not(.audio-play-btn svg):not(.audio-delete-btn svg) {
+  color: #3a3a3c !important;
+}
+
+.bg-note-light button:not(.audio-play-btn):not(.audio-delete-btn):not(.image-delete-btn):hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #1c1c1e !important;
+}
+
+.bg-note-light .border-charcoal-800\/40, .bg-note-light .border-b {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.bg-note-light .bg-charcoal-800\/40 {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.bg-note-light .audio-player-wrapper {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bg-note-light .audio-player-wrapper span {
+  color: #1c1c1e !important;
+}
+
+.bg-note-light .audio-player-wrapper .audio-play-btn {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bg-note-light .audio-player-wrapper .audio-play-btn svg {
+  fill: #1c1c1e !important;
+}
+
+.bg-note-light .audio-player-wrapper .audio-delete-btn {
+  background-color: transparent !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bg-note-light .image-wrapper img {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.bg-note-dotted {
+  background-color: var(--color-charcoal-900) !important;
+  background-image: radial-gradient(var(--color-charcoal-700) 1px, transparent 1px) !important;
+  background-size: 20px 20px !important;
+  color: var(--color-charcoal-100) !important;
+}
+
+.theme-light .bg-note-dotted {
+  background-color: #ffffff !important;
+  background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px) !important;
+  background-size: 20px 20px !important;
+  color: #09090b !important;
+}
+
+.bg-note-blur-gradient {
+  background: radial-gradient(circle at top right, rgba(45, 30, 75, 0.7), var(--color-charcoal-900) 75%) !important;
+  color: var(--color-charcoal-100) !important;
+}
+
+.bg-note-transparent-gradient {
+  background: linear-gradient(135deg, rgba(35, 35, 45, 0.5) 0%, rgba(13, 13, 14, 0.95) 100%) !important;
+  color: var(--color-charcoal-100) !important;
+}
+
+/* Beautiful custom formatting styles for text highlights */
+.rich-editor mark, mark {
+  background-color: rgba(251, 191, 36, 0.35);
+  color: inherit;
+  border-radius: 0.25rem;
+  padding: 0.05rem 0.15rem;
+}
+
+/* Styling for tables inside rich-editor */
+.rich-editor table, .note-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.rich-editor table th, .rich-editor table td {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 8px;
+  font-size: 11px;
+}
+.bg-note-light table {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+.bg-note-light table th, .bg-note-light table td {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  color: #1c1c1e !important;
+}
+.bg-note-light table th {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.theme-light .rich-editor table,
+.theme-light .note-table {
+  border-color: #e4e4e7 !important;
+}
+.theme-light .rich-editor table th,
+.theme-light .rich-editor table td {
+  border-color: #e4e4e7 !important;
+  color: #09090b !important;
+}
+.theme-light .rich-editor table th {
+  background-color: #f8fafc !important;
+}
+
+/* Code block styles */
+.code-block-container button {
+  opacity: 0.8;
+}
+.code-block-container:hover button {
+  opacity: 1;
+}
+
+/* Divider selection style */
+.note-divider {
+  border: 0 !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.1) !important;
+  margin: 1.5rem 0 !important;
+  cursor: pointer !important;
+  padding: 4px 0 !important;
+  transition: all 0.2s !important;
+}
+.note-divider:hover {
+  border-top-color: rgba(255, 255, 255, 0.3) !important;
+}
+.bg-note-light .note-divider {
+  border-top-color: rgba(0, 0, 0, 0.15) !important;
+}
+.bg-note-light .note-divider:hover {
+  border-top-color: rgba(0, 0, 0, 0.4) !important;
+}
+.theme-light .note-divider {
+  border-top-color: #e4e4e7 !important;
+}
+.theme-light .note-divider:hover {
+  border-top-color: #cbd5e1 !important;
+}
+
+/* Light theme UI enhancements */
+.theme-light .bg-charcoal-800\/20,
+.theme-light .bg-charcoal-850\/20 {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+}
+
+.theme-light .bg-charcoal-900\/35 {
+  background-color: #f1f5f9 !important;
+}
+
+.theme-light .bg-charcoal-900\/60 {
+  background-color: #ffffff !important;
+}
+
+.theme-light .bg-charcoal-950\/45,
+.theme-light .bg-charcoal-950\/40 {
+  background-color: #e2e8f0 !important;
+}
+
+.theme-light [id="note-editor-toolbar"],
+.theme-light .editor-bottom-toolbar {
+  background-color: #ffffff !important;
+  border-color: #e4e4e7 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
+}
+
+.theme-light [id="sidebar-menu-drawer"] {
+  background-color: #ffffff !important;
+  border-color: #e4e4e7 !important;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+.theme-light .bg-charcoal-900\/80 {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+}
+
+.theme-light [id^="note-card-"] {
+  background-color: #ffffff !important;
+  border-color: #e4e4e7 !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+}
+
+.theme-light [id^="note-card-"]:hover {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+}
+
+
